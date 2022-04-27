@@ -10,7 +10,8 @@ var config = {
   },
   scene: {
     preload: preload,
-    create: create
+    create: create,
+    update: update
   }
 };
 
@@ -35,3 +36,11 @@ function create () {
   this.add.image(400, 100, 'logo');
 
   }
+
+  function update ()
+{
+    if (Phaser.Input.Keyboard.JustDown(spacebar))
+    {
+        
+    }
+}
