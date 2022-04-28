@@ -15,32 +15,68 @@ var config = {
   }
 };
 
+var keys;
+var grFrame;
+
 var game = new Phaser.Game(config);
 
 function preload () {
 
-    // this.load.setBaseURL('http://labs.phaser.io');
-
     this.load.image('dosBackground', 'assets/dos/background.png');
-    this.load.image('logo', 'assets/sprites/phaser3-logo.png');
+    this.load.image('gFrameImg', 'assets/dos/grey_panel.png');
 
   }
 
 function create () {
 
+  keys = this.input.keyboard.addKeys('q, esc, Digit1');
+
   var windowWidth = window.innerWidth;
   var widnowHeight = window.innerHeight;
-  // this.bg.setDisplaySize(windowWidth, widnowHeight);
-
   this.add.image(windowWidth / 2, widnowHeight / 2, 'dosBackground');
-  this.add.image(400, 100, 'logo');
+
+  var GreyFrame = new Phaser.Class({
+    Extends: Phaser.GameObjects.Image,
+
+        initialize:
+
+        function greyFrame (scene)
+        {
+            Phaser.GameObjects.Image.call(this, scene, 0, 0, 'gFrameImg');
+        },
+
+        show: function () {
+            this.setPosition(windowWidth / 2, widnowHeight / 2);
+            this.setActive(true);
+            this.setVisible(true);
+        },
+
+        hide: function () {
+            image.destroy();
+            image = null;
+        }
+
+  });
+
+  grFrame = this.add.group({
+    classType: GreyFrame,
+    maxSize: 1,
+  });
 
   }
 
-  function update ()
-{
-    if (Phaser.Input.Keyboard.JustDown(spacebar))
-    {
-        
+  function update () {
+    if (Phaser.Input.Keyboard.JustDown(keys.q)) {
+        var getFrame = grFrame.get();
+        if (getFrame) {
+            getFrame.show();
+        }
+    }
+
+    if (Phaser.Input.Keyboard.JustDown(keys.esc)) {
+      var getFrame = grFrame.get();
+      if (getFrame) {
+          getFrame.hide();
+      }
     }
 }
