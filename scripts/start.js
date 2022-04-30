@@ -26,14 +26,14 @@ var Menu = new Phaser.Class({
         }, this);
 
         this.input.keyboard.once('keyup-TWO', function () {
-
-            this.scene.start('demo', { id: 1, image: 'van.jpg' });
+            floppySound.play();
+            this.scene.start('demo', { id: 1, image: 'van.png' });
 
         }, this);
 
         this.input.keyboard.once('keyup-THREE', function () {
-
-            this.scene.start('demo', { id: 2, image: 'billy.jpg' });
+            floppySound.play();
+            this.scene.start('demo', { id: 2, image: 'billy.png' });
 
         }, this);
 
