@@ -29,54 +29,59 @@ function preload () {
 
 function create () {
 
-  keys = this.input.keyboard.addKeys('q, esc, Digit1');
+  keys = this.input.keyboard.addKeys('q, esc');
 
   var windowWidth = window.innerWidth;
   var widnowHeight = window.innerHeight;
   this.add.image(windowWidth / 2, widnowHeight / 2, 'dosBackground');
 
-  var GreyFrame = new Phaser.Class({
-    Extends: Phaser.GameObjects.Image,
-
-        initialize:
-
-        function greyFrame (scene)
-        {
-            Phaser.GameObjects.Image.call(this, scene, 0, 0, 'gFrameImg');
-        },
-
-        show: function () {
-            this.setPosition(windowWidth / 2, widnowHeight / 2);
-            this.setActive(true);
-            this.setVisible(true);
-        },
-
-        hide: function () {
-            image.destroy();
-            image = null;
-        }
-
-  });
-
-  grFrame = this.add.group({
-    classType: GreyFrame,
-    maxSize: 1,
-  });
+  // var GreyFrame = new Phaser.Class({
+  //   Extends: Phaser.GameObjects.Image,
+  //
+  //       initialize:
+  //
+  //       function greyFrame (scene)
+  //       {
+  //           Phaser.GameObjects.Image.call(this, scene, 0, 0, 'gFrameImg');
+  //       },
+  //
+  //       show: function () {
+  //           this.setPosition(windowWidth / 2, widnowHeight / 2);
+  //           this.setActive(true);
+  //           this.setVisible(true);
+  //       }
+  //
+  // });
+  //
+  // grFrame = this.add.group({
+  //   classType: GreyFrame,
+  //   maxSize: 1,
+  // });
 
   }
 
   function update () {
+
+    var windowWidth = window.innerWidth;
+    var widnowHeight = window.innerHeight;
+
     if (Phaser.Input.Keyboard.JustDown(keys.q)) {
-        var getFrame = grFrame.get();
-        if (getFrame) {
-            getFrame.show();
-        }
+        // var getFrame = grFrame.get();
+        console.log(this.children.getChildren());
+        //
+        // if (getFrame) {
+        //     getFrame.show();
+        // }
+        this.add.image(windowWidth / 2, widnowHeight / 2, 'gFrameImg');
     }
 
     if (Phaser.Input.Keyboard.JustDown(keys.esc)) {
-      var getFrame = grFrame.get();
-      if (getFrame) {
-          getFrame.hide();
-      }
+      console.log("pushed esc");
+      var objToDestroy = this.children.getChildren().length-1;
+      console.log((this.children.getChildren().length)-1);
+
+      var childrensArray = this.children.getChildren();
+      var lastName = childrensArray[this.children.getChildren().length-1].texture.key;
+      console.log(lastName);
     }
 }
