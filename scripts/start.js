@@ -1,87 +1,105 @@
-var config = {
-  type: Phaser.AUTO,
-  width: 1920,
-  height: 1080,
-  physics: {
-    default: 'arcade',
-    arcade: {
-      // gravity: { y: 0 }
+var Menu = new Phaser.Class({
+
+    Extends: Phaser.Scene,
+
+    initialize:
+
+    function Menu ()
+    {
+        Phaser.Scene.call(this, 'menu');
+    },
+
+    preload: function ()
+    {
+        this.load.image('dosBackground', 'assets/dos/background.png');
+    },
+
+    create: function ()
+    {
+      var windowWidth = window.innerWidth;
+      var widnowHeight = window.innerHeight;
+      this.add.image(windowWidth / 2, widnowHeight / 2, 'dosBackground');
+
+        this.input.keyboard.once('keyup-ONE', function () {
+
+            this.scene.start('demo', { id: 0, image: 'grey_panel.png' });
+
+        }, this);
+
+        this.input.keyboard.once('keyup-TWO', function () {
+
+            this.scene.start('demo', { id: 1, image: 'van.jpg' });
+
+        }, this);
+
+        this.input.keyboard.once('keyup-THREE', function () {
+
+            this.scene.start('demo', { id: 2, image: 'billy.jpg' });
+
+        }, this);
+
+        this.events.on('shutdown', this.shutdown, this);
+    },
+
+    shutdown: function ()
+    {
+        this.input.keyboard.shutdown();
     }
-  },
-  scene: {
-    preload: preload,
-    create: create,
-    update: update
-  }
+
+});
+
+
+//заготовка сцены
+var Demo = new Phaser.Class({
+
+    Extends: Phaser.Scene,
+
+    initialize:
+
+    function Demo ()
+    {
+        Phaser.Scene.call(this, { key: 'demo' });
+    },
+
+    init: function (data)
+    {
+        console.log('init', data);
+
+        this.imageID = data.id;
+        this.imageFile = data.image;
+    },
+
+    preload: function ()
+    {
+        this.load.image('pic' + this.imageID, 'assets/dos/' + this.imageFile);
+    },
+
+    create: function ()
+    {
+
+        var windowWidth = window.innerWidth;
+        var widnowHeight = window.innerHeight;
+        this.add.image(windowWidth / 2, widnowHeight / 2, 'dosBackground');
+
+        this.add.image(windowWidth / 2, widnowHeight / 2, 'pic' + this.imageID);
+
+        this.input.keyboard.on('keydown-ESC', function () {
+
+            this.scene.start('menu');
+
+        }, this);
+    }
+
+});
+
+var config = {
+    type: Phaser.AUTO,
+    width: 1920,
+    height: 1080,
+    // backgroundColor: '#2d2d8d',
+    pixelArt: true,
+    parent: 'phaser-example',
+    scene: [ Menu, Demo ]
 };
 
-var keys;
-var grFrame;
-
 var game = new Phaser.Game(config);
-
-function preload () {
-
-    this.load.image('dosBackground', 'assets/dos/background.png');
-    this.load.image('gFrameImg', 'assets/dos/grey_panel.png');
-
-  }
-
-function create () {
-
-  keys = this.input.keyboard.addKeys('q, esc');
-
-  var windowWidth = window.innerWidth;
-  var widnowHeight = window.innerHeight;
-  this.add.image(windowWidth / 2, widnowHeight / 2, 'dosBackground');
-
-  // var GreyFrame = new Phaser.Class({
-  //   Extends: Phaser.GameObjects.Image,
-  //
-  //       initialize:
-  //
-  //       function greyFrame (scene)
-  //       {
-  //           Phaser.GameObjects.Image.call(this, scene, 0, 0, 'gFrameImg');
-  //       },
-  //
-  //       show: function () {
-  //           this.setPosition(windowWidth / 2, widnowHeight / 2);
-  //           this.setActive(true);
-  //           this.setVisible(true);
-  //       }
-  //
-  // });
-  //
-  // grFrame = this.add.group({
-  //   classType: GreyFrame,
-  //   maxSize: 1,
-  // });
-
-  }
-
-  function update () {
-
-    var windowWidth = window.innerWidth;
-    var widnowHeight = window.innerHeight;
-
-    if (Phaser.Input.Keyboard.JustDown(keys.q)) {
-        // var getFrame = grFrame.get();
-        console.log(this.children.getChildren());
-        //
-        // if (getFrame) {
-        //     getFrame.show();
-        // }
-        this.add.image(windowWidth / 2, widnowHeight / 2, 'gFrameImg');
-    }
-
-    if (Phaser.Input.Keyboard.JustDown(keys.esc)) {
-      console.log("pushed esc");
-      var objToDestroy = this.children.getChildren().length-1;
-      console.log((this.children.getChildren().length)-1);
-
-      var childrensArray = this.children.getChildren();
-      var lastName = childrensArray[this.children.getChildren().length-1].texture.key;
-      console.log(lastName);
-    }
-}
