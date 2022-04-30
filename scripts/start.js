@@ -4,24 +4,23 @@ var Menu = new Phaser.Class({
 
     initialize:
 
-    function Menu ()
-    {
+    function Menu () {
         Phaser.Scene.call(this, 'menu');
     },
 
-    preload: function ()
-    {
-        this.load.image('dosBackground', 'assets/dos/background.png');
+    preload: function () {
+        this.load.image('dosBackground', 'assets/dos/pics/background.png');
+        this.load.audio('floppy', 'assets/dos/audio/floppy_sound.mp3')
     },
 
-    create: function ()
-    {
+    create: function () {
       var windowWidth = window.innerWidth;
       var widnowHeight = window.innerHeight;
       this.add.image(windowWidth / 2, widnowHeight / 2, 'dosBackground');
+      var floppySound = this.sound.add('floppy');
 
         this.input.keyboard.once('keyup-ONE', function () {
-
+            floppySound.play();
             this.scene.start('demo', { id: 0, image: 'grey_panel.png' });
 
         }, this);
@@ -41,8 +40,9 @@ var Menu = new Phaser.Class({
         this.events.on('shutdown', this.shutdown, this);
     },
 
-    shutdown: function ()
-    {
+
+
+    shutdown: function () {
         this.input.keyboard.shutdown();
     }
 
@@ -56,37 +56,29 @@ var Demo = new Phaser.Class({
 
     initialize:
 
-    function Demo ()
-    {
+    function Demo () {
         Phaser.Scene.call(this, { key: 'demo' });
     },
 
-    init: function (data)
-    {
+    init: function (data) {
         console.log('init', data);
 
         this.imageID = data.id;
         this.imageFile = data.image;
     },
 
-    preload: function ()
-    {
-        this.load.image('pic' + this.imageID, 'assets/dos/' + this.imageFile);
+    preload: function () {
+        this.load.image('pic' + this.imageID, 'assets/dos/pics/' + this.imageFile);
     },
 
-    create: function ()
-    {
-
+    create: function () {
         var windowWidth = window.innerWidth;
         var widnowHeight = window.innerHeight;
         this.add.image(windowWidth / 2, widnowHeight / 2, 'dosBackground');
-
         this.add.image(windowWidth / 2, widnowHeight / 2, 'pic' + this.imageID);
 
         this.input.keyboard.on('keydown-ESC', function () {
-
             this.scene.start('menu');
-
         }, this);
     }
 
