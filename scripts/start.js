@@ -103,6 +103,7 @@ var GamesList = new Phaser.Class({
 
     preload: function () {
         this.load.image('gamesPanelImage', 'assets/dos/pics/games_panel.png');
+        // this.load.json('allGamesJSON', 'temp/games.json');
     },
 
     create: function () {
@@ -113,12 +114,16 @@ var GamesList = new Phaser.Class({
             this.scene.start('menu');
         }, this);
 
-        var text = this.add.text(100, 100, 'Big FUCKING text', { fontFamily: 'swissFont', font:'24px', fill: '#ffffff' });
+        // var text = this.add.text(100, 100, 'Big FUCKING text', { fontFamily: 'SwissFont', font:'24px', fill: '#ffffff' });
 
         // text.setText([
         //   // 'Level: ' + this.data.get('level')
         //   'text for gameslist panel'
         // ]);
+
+        // console.log(oldGames);
+        // var phaserJSON = this.cache.json.get('allGamesJSON');
+        // var text = this.add.text(100, 100, phaserJSON.name, { fontFamily: 'SwissFont', font:'24px', fill: '#ffffff' });
     }
 
 });

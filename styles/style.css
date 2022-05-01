@@ -1,4 +1,9 @@
 @font-face {
-    font-family: swissFont;
-    src: url('../assets/fonts/swisssienarusbydaymarius.ttf');
+    font-family: SwissFont;
+    src: url('../src/fonts/swisssienarusbydaymarius.ttf');
+}
+
+@font-face {
+    font-family: myriadCad;
+    src: url(../src/fonts/myriadcad.otf);
 }
