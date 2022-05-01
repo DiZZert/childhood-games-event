@@ -14,8 +14,6 @@ var Menu = new Phaser.Class({
     },
 
     create: function () {
-      var windowWidth = window.innerWidth;
-      var widnowHeight = window.innerHeight;
       this.add.image(windowWidth / 2, widnowHeight / 2, 'dosBackground');
       var floppySound = this.sound.add('floppy');
 
@@ -27,13 +25,19 @@ var Menu = new Phaser.Class({
 
         this.input.keyboard.once('keyup-TWO', function () {
             floppySound.play();
-            this.scene.start('demo', { id: 1, image: 'van.png' });
+            this.scene.start('glist', 0);
 
         }, this);
 
-        this.input.keyboard.once('keyup-THREE', function () {
+        this.input.keyboard.once('keyup-EIGHT', function () {
             floppySound.play();
-            this.scene.start('demo', { id: 2, image: 'billy.png' });
+            this.scene.start('demo', { id: 8, image: 'van.png' });
+
+        }, this);
+
+        this.input.keyboard.once('keyup-NINE', function () {
+            floppySound.play();
+            this.scene.start('demo', { id: 9, image: 'billy.png' });
 
         }, this);
 
@@ -72,8 +76,7 @@ var Demo = new Phaser.Class({
     },
 
     create: function () {
-        var windowWidth = window.innerWidth;
-        var widnowHeight = window.innerHeight;
+
         this.add.image(windowWidth / 2, widnowHeight / 2, 'dosBackground');
         this.add.image(windowWidth / 2, widnowHeight / 2, 'pic' + this.imageID);
 
@@ -84,13 +87,51 @@ var Demo = new Phaser.Class({
 
 });
 
+var GamesList = new Phaser.Class({
+
+    Extends: Phaser.Scene,
+
+    initialize:
+
+    function GamesList () {
+        Phaser.Scene.call(this, { key: 'glist' });
+    },
+
+    init: function () {
+
+    },
+
+    preload: function () {
+        this.load.image('gamesPanelImage', 'assets/dos/pics/games_panel.png');
+    },
+
+    create: function () {
+        this.add.image(windowWidth / 2, widnowHeight / 2, 'dosBackground');
+        this.add.image(windowWidth / 2, widnowHeight / 2, 'gamesPanelImage');
+
+        this.input.keyboard.on('keydown-ESC', function () {
+            this.scene.start('menu');
+        }, this);
+
+        var text = this.add.text(100, 100, 'Big FUCKING text', { fontFamily: 'swissFont', font:'24px', fill: '#ffffff' });
+
+        // text.setText([
+        //   // 'Level: ' + this.data.get('level')
+        //   'text for gameslist panel'
+        // ]);
+    }
+
+});
+
 var config = {
     type: Phaser.AUTO,
     width: 1920,
     height: 1080,
     pixelArt: true,
     parent: 'childhood-games',
-    scene: [ Menu, Demo ]
+    scene: [ Menu, Demo, GamesList ]
 };
 
 var game = new Phaser.Game(config);
+var windowWidth = window.innerWidth;
+var widnowHeight = window.innerHeight;
