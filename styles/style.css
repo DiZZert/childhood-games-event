@@ -1,0 +1,11 @@
+* { padding: 0; margin: 0; }
+
+@font-face {
+    font-family: SwissFont;
+    src: url('../src/fonts/swisssienarusbydaymarius.ttf');
+}
+
+@font-face {
+    font-family: myriadCad;
+    src: url(../src/fonts/myriadcad.otf);
+}
