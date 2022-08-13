@@ -1,18 +1,27 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-  <link rel="preload" as="font" href="src/fonts/swisssienarusbydaymarius.ttf" type="font/ttf"></link>
-  <script type="text/javascript" src="scripts/phaser.js"></script>
-  <link rel="stylesheet" href="styles/style.css">
-  <title>Old Games Event</title>
+    <head>
+        <script type="text/javascript" src="scripts/phaser.js"></script>
+        <script src="scripts/epochScreen.js"></script>
+        <script src="scripts/sceneDOS.js"></script>
+        <script src="scripts/sceneXP.js"></script>
+        <script src="scripts/scene98.js"></script>
+    </head>
+    <body>
+        <div id="game"></div>
+        <script>
 
-</style>
+            const phaserConfig = {
+                type: Phaser.AUTO,
+                parent: "game",
+                width: 1920,
+                height: 1080,
+                backgroundColor: "#515151",
+                scene: [ EpochScreen, SceneDOS, Scene98, SceneXP, Demo, GamesList ]
+            };
 
-</head>
-<body>
-    <div style="font-family:SwissFont; position:absolute; left:-1000px; visibility:hidden;"></div>
-    <script src="scripts/start.js"></script>
+            const game = new Phaser.Game(phaserConfig);
 
-</body>
+        </script>
+    </body>
 </html>

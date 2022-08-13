@@ -1,19 +1,15 @@
-var Menu = new Phaser.Class({
-
+var SceneDOS = new Phaser.Class({
     Extends: Phaser.Scene,
-
-    initialize:
-
-    function Menu () {
-        Phaser.Scene.call(this, 'menu');
+    initialize: function() {
+        Phaser.Scene.call(this, { "key": "SceneDOS" });
+    },
+    init: function() {},
+    preload: function() {
+      this.load.image('dosBackground', 'assets/dos/pics/background.png');
+      this.load.audio('floppy', 'assets/dos/audio/floppy_sound.mp3')
     },
 
-    preload: function () {
-        this.load.image('dosBackground', 'assets/dos/pics/background.png');
-        this.load.audio('floppy', 'assets/dos/audio/floppy_sound.mp3')
-    },
-
-    create: function () {
+    create: function() {
       this.add.image(windowWidth / 2, widnowHeight / 2, 'dosBackground');
       var floppySound = this.sound.add('floppy');
 
@@ -41,17 +37,20 @@ var Menu = new Phaser.Class({
 
         }, this);
 
+        this.input.keyboard.once('keyup-ZERO', function () {
+            this.scene.start('SceneOne', 0);
+
+        }, this);
+
         this.events.on('shutdown', this.shutdown, this);
     },
 
-
+    update: function() {},
 
     shutdown: function () {
         this.input.keyboard.shutdown();
     }
-
 });
-
 
 //заготовка сцены
 var Demo = new Phaser.Class({
@@ -81,7 +80,7 @@ var Demo = new Phaser.Class({
         this.add.image(windowWidth / 2, widnowHeight / 2, 'pic' + this.imageID);
 
         this.input.keyboard.on('keydown-ESC', function () {
-            this.scene.start('menu');
+            this.scene.start('SceneDOS');
         }, this);
     }
 
@@ -111,7 +110,7 @@ var GamesList = new Phaser.Class({
         this.add.image(windowWidth / 2, widnowHeight / 2, 'gamesPanelImage');
 
         this.input.keyboard.on('keydown-ESC', function () {
-            this.scene.start('menu');
+            this.scene.start('SceneDOS');
         }, this);
 
         // var text = this.add.text(100, 100, 'Big FUCKING text', { fontFamily: 'SwissFont', font:'24px', fill: '#ffffff' });
@@ -127,16 +126,3 @@ var GamesList = new Phaser.Class({
     }
 
 });
-
-var config = {
-    type: Phaser.AUTO,
-    width: 1920,
-    height: 1080,
-    pixelArt: true,
-    parent: 'childhood-games',
-    scene: [ Menu, Demo, GamesList ]
-};
-
-var game = new Phaser.Game(config);
-var windowWidth = window.innerWidth;
-var widnowHeight = window.innerHeight;
