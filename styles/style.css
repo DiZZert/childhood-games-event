@@ -1,9 +1,9 @@
-@font-face {
-    font-family: SwissFont;
-    src: url('../src/fonts/swisssienarusbydaymarius.ttf');
+body {
+  overflow: hidden;
 }
 
-@font-face {
-    font-family: myriadCad;
-    src: url(../src/fonts/myriadcad.otf);
+#game {
+  position: absolute;
+  top: 0px;
+  left: 0px;
 }
