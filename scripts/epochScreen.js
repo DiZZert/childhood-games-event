@@ -11,6 +11,7 @@ var EpochScreen = new Phaser.Class({
         this.load.image('buttonDOS', 'assets/epochs/buttonDOS.png');
         this.load.image('button98', 'assets/epochs/button98.png');
         this.load.image('buttonXP', 'assets/epochs/buttonXP.png');
+        this.load.image('button7', 'assets/epochs/button7.png');
     },
     create: function() {
 
@@ -25,6 +26,10 @@ var EpochScreen = new Phaser.Class({
           this.clickButton = this.add.image(windowWidth / 2, (widnowHeight / 2) + 90, 'buttonXP')
            .setInteractive()
            .on('pointerdown', () => this.scene.start('SceneXP', 0) );
+
+           this.clickButton = this.add.image(windowWidth / 2, (widnowHeight / 2) + 180, 'button7')
+            .setInteractive()
+            .on('pointerdown', () => this.scene.start('Scene7', 0) );
 
     },
     update: function() {}
